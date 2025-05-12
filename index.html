@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online CV Maker</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- html2pdf library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Online CV Maker</h1>
+
+        <div class="tabs">
+            <div class="tab-header">
+                <button class="tab-btn active" data-tab="edit">Edit CV</button>
+                <button class="tab-btn" data-tab="preview">Preview CV</button>
+            </div>
+
+            <div class="tab-content active" id="edit">
+                <!-- Personal Information -->
+                <div class="card">
+                    <div class="card-content">
+                        <h2 class="section-title">Personal Information</h2>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" name="name" placeholder="John Doe">
+                            </div>
+                            <div class="form-group">
+                                <label for="title">Professional Title</label>
+                                <input type="text" id="title" name="title" placeholder="Software Engineer">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" placeholder="john.doe@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone</label>
+                                <input type="text" id="phone" name="phone" placeholder="+1 234 567 890">
+                            </div>
+                            <div class="form-group full-width">
+                                <label for="address">Address</label>
+                                <input type="text" id="address" name="address" placeholder="123 Main St, City, Country">
+                            </div>
+                            <div class="form-group full-width">
+                                <label for="summary">Professional Summary</label>
+                                <textarea id="summary" name="summary" rows="4" placeholder="A brief summary of your professional background and goals"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="switch-container">
+                            <label class="switch">
+                                <input type="checkbox" id="include-photo">
+                                <span class="slider round"></span>
+                            </label>
+                            <label for="include-photo">Include Photo</label>
+                        </div>
+
+                        <div id="photo-upload-container" class="hidden">
+                            <label for="photo">Upload Photo</label>
+                            <input type="file" id="photo" name="photo" accept="image/*" class="file-input">
+                            <div id="photo-preview-container" class="hidden">
+                                <img id="photo-preview" src="/placeholder.svg" alt="Preview" class="photo-preview">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Education -->
+                <div class="card">
+                    <div class="card-content">
+                        <div class="section-header">
+                            <h2 class="section-title">Education</h2>
+                            <button class="btn-outline" id="add-education">
+                                <i class="fas fa-plus-circle"></i> Add
+                            </button>
+                        </div>
+
+                        <div id="education-container">
+                            <div class="education-item" data-id="1">
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="institution-1">Institution</label>
+                                        <input type="text" id="institution-1" name="institution" placeholder="University Name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="degree-1">Degree</label>
+                                        <input type="text" id="degree-1" name="degree" placeholder="Bachelor of Science">
+                                    </div>
+                                    <div class="form-group with-delete">
+                                        <label for="year-1">Year</label>
+                                        <div class="input-with-button">
+                                            <input type="text" id="year-1" name="year" placeholder="2018 - 2022">
+                                            <button class="btn-delete delete-education" disabled>
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience -->
+                <div class="card">
+                    <div class="card-content">
+                        <div class="section-header">
+                            <h2 class="section-title">Work Experience</h2>
+                            <button class="btn-outline" id="add-experience">
+                                <i class="fas fa-plus-circle"></i> Add
+                            </button>
+                        </div>
+
+                        <div id="experience-container">
+                            <div class="experience-item" data-id="1">
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="company-1">Company</label>
+                                        <input type="text" id="company-1" name="company" placeholder="Company Name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="position-1">Position</label>
+                                        <input type="text" id="position-1" name="position" placeholder="Software Engineer">
+                                    </div>
+                                    <div class="form-group with-delete">
+                                        <label for="duration-1">Duration</label>
+                                        <div class="input-with-button">
+                                            <input type="text" id="duration-1" name="duration" placeholder="Jan 2020 - Present">
+                                            <button class="btn-delete delete-experience" disabled>
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group full-width">
+                                    <label for="description-1">Description</label>
+                                    <textarea id="description-1" name="description" rows="3" placeholder="Describe your responsibilities and achievements"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skills -->
+                <div class="card">
+                    <div class="card-content">
+                        <div class="section-header">
+                            <h2 class="section-title">Skills</h2>
+                            <button class="btn-outline" id="add-skill">
+                                <i class="fas fa-plus-circle"></i> Add
+                            </button>
+                        </div>
+
+                        <div id="skills-container">
+                            <div class="skill-item" data-id="1">
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="skill-1">Skill</label>
+                                        <input type="text" id="skill-1" name="skill" placeholder="JavaScript">
+                                    </div>
+                                    <div class="form-group with-delete">
+                                        <label for="level-1">Proficiency Level (1-5): <span class="level-value">3</span></label>
+                                        <div class="input-with-button">
+                                            <input type="range" id="level-1" name="level" min="1" max="5" value="3" class="range-input">
+                                            <button class="btn-delete delete-skill" disabled>
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="preview">
+                <div class="preview-actions">
+                    <button class="btn-outline" id="back-to-edit">
+                        <i class="fas fa-eye"></i> Edit
+                    </button>
+                    <button class="btn-primary" id="download-pdf">
+                        <i class="fas fa-download"></i> Download PDF
+                    </button>
+                </div>
+
+                <div class="cv-preview-container">
+                    <div id="cv-preview" class="cv-preview">
+                        <!-- CV Preview will be generated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
